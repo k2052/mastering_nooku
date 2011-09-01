@@ -23,4 +23,4 @@ methods are optional in PHP or not.
 
 ## KIdentifier
 
-It looks like pretty everything isn't an actual until its ran through KFactory. 
+It looks like pretty much everything isn't an actual object until its ran through KFactory. 
