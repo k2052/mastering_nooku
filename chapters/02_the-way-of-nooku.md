@@ -14,11 +14,11 @@ and with Koowa::getPath();. First it grabs exception handling,
 
 As a side note both Exception and identifier are misspelled.
 
-It looks like Koowa follows a strict convention of first creating interfaces and then implementations. I'm not sure if I
-like the obsessive level of this, but I imagine it accomplishes allot though; 1. Makes the core easily extendable. 2. Makes
-sure there is thought put thought into API changes. 3. Gives a good overview of the actual interface without the extra code
-to read. You cant have missing methods etc. Actually that might not be accurate I cant remember if interface implementation
-methods are optional in PHP or not.  
+It looks like Koowa follows a strict convention of first creating interfaces and then implementations. I'm not sure if I like
+the obsessive level of this, but I imagine it accomplishes allot though; 1. Makes the core easily extendable. 2. Makes sure
+there is thought put thought into API changes. 3. Gives a good overview of the actual interface without the extra code to
+read. 4. You cant have missing methods etc. 5. Allows class type checking due to inheritance. Actually that might not be
+accurate I cant remember if interface implementation methods are optional in PHP or not.
 
 ## KIdentifier: How a path is made.
 
@@ -54,16 +54,28 @@ The final item in a path is special and treated as a file. So the final path is:
 Once KIdentifier is ready the Kloader class is loaded. Everything passed into a loader is in the form of and identifier string.
 
 In loader a new concept is introduced, that of Adapters. Adapters are
-a further level of abstraction which allows multiple implementations of the same class. Potentially allowing not just
+are further level of abstraction which allows multiple implementations of the same class. Potentially allowing not just
 cross-version compatibility but also cross-platform compatibility. Seems to me I remember talks of a WP version of Nooku
 awhile back.   
 
-Adapters have some sort prefix system internalized. I'm guessing this is to hold the platform name i.e 'Joomla'.     
+Adapters have some sort prefix system internalized. I'm guessing this is to hold the platform name i.e 'Joomla'.  
 
 Adapters in the context of KLoader's are used to abstract away the paths, so Koowa knows where to get its
 models,views,controllers etc no matter if its running on J1.5 or J1.7 or WP 2.5. That allows stuff like
 `KLoader::load('site::com.harbour.mappings');` to make sense to Koowa not matter what the platform.    
 
+
+When we add an adapter to KLoader its added to the KLoader::_adapters array and keyed by prefix. 
+     
+```php  
+KLoader::addAdapter(new KLoaderAdapterKoowa(Koowa::getPath()));
+KLoader::addAdapter(new KLoaderAdapterJoomla(JPATH_LIBRARIES));
+```     
+
+The end result of the above is an internal KLoader array like this `$_adapters = array('K' => $adapterObject, 'J' => $adapterObject);`
+
+This is how Koowa determines both the path to a file and its class name.
+                       
 Now remember those KIdentfier's? Did you wonder how it determined what was the app path? You probably assumed it was
 hardcoded into the KIdentifier class. Its actually abstracted at the Joomla! plugin level. In the plugin itself before
 loading up Koowa we first register the application names and their paths.
@@ -77,6 +89,4 @@ This is cool because it allows us to extend the KIdentfier if we so desire with 
 `KIdentifier::registerApplication('foo' , JPATH_SITE.DS.'specialawesomefoopath');`. 
 
 In Koowa's case it was used to abstract away the paths on different versions of Joomla! and different platforms. Imagine
-doing something like `KIdentifier::registerApplication('wpadmin', WORDPRESS_ADMIN_PATH);`, the possibilities are endless! 
-
-
+doing something like `KIdentifier::registerApplication('wpadmin', WORDPRESS_ADMIN_PATH);`, the possibilities are endless!
