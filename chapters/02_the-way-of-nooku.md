@@ -39,12 +39,15 @@ here. You see the KIdentifier string is first and foremost abstracted at the app
 
 Lets examine an example:      
 
-
 `KLoader::load('admin::com.harbour.mappings');` first becomes `root_path/admin_app_path` which is `root_path/administrator`.
                                                                         
-The next declaration is an extension type declaration component, module, plugin etc. So the string now becomes `root_path/administrator/components`. Next the extension name is added and the path becomes `root_path/administrator/components/com_harbour`. Next the string is split at each dot '.' and each item is appended to the path `root_path/administrator/components/com_harbour/mappings`.
+The next declaration is an extension type declaration component, module, plugin etc. So the string now becomes
+`root_path/administrator/components`. Next the extension name is added and the path becomes
+`root_path/administrator/components/com_harbour`. Next the string is split at each dot '.' and each item is appended to the
+path `root_path/administrator/components/com_harbour/mappings`.
 
-The final item in a path is special and treated as a file. So the final path is: `root_path/administrator/components/com_harbour/mappings/mappings.php`.    
+The final item in a path is special and treated as a file. So the final path is:
+`root_path/administrator/components/com_harbour/mappings/mappings.php`.   
  
 ## Adapters
 
@@ -57,13 +60,13 @@ awhile back.
 
 Adapters have some sort prefix system internalized. I'm guessing this is to hold the platform name i.e 'Joomla'.     
 
-Adapters in teh context of KLoaders are used to abstract away the paths, so Koowa know where to get its
-models,views,controllers etc no matter if its on J1.5 or J1.7 or WP 2.5. That allows stuff like
+Adapters in the context of KLoader's are used to abstract away the paths, so Koowa knows where to get its
+models,views,controllers etc no matter if its running on J1.5 or J1.7 or WP 2.5. That allows stuff like
 `KLoader::load('site::com.harbour.mappings');` to make sense to Koowa not matter what the platform.    
 
 Now remember those KIdentfier's? Did you wonder how it determined what was the app path? You probably assumed it was
 hardcoded into the KIdentifier class. Its actually abstracted at the Joomla! plugin level. In the plugin itself before
-loading up Koowa we first register the application names and there paths.
+loading up Koowa we first register the application names and their paths.
 
 ```php
 KIdentifier::registerApplication('site' , JPATH_SITE);
@@ -71,6 +74,9 @@ KIdentifier::registerApplication('admin', JPATH_ADMINISTRATOR);
 ```  
 
 This is cool because it allows us to extend the KIdentfier if we so desire with custom paths. Like for example
-`KIdentifier::registerApplication('foo' , JPATH_SITE.DS.'specialawesomefoopath');`. In Koow's case it was done to abstract
-away the paths on different versions of Joomla! and different platforms. Imagine doing something like
-`KIdentifier::registerApplication('wpadmin', WORDPRESS_ADMIN_PATH);`, the possibilities are endless!
+`KIdentifier::registerApplication('foo' , JPATH_SITE.DS.'specialawesomefoopath');`. 
+
+In Koowa's case it was used to abstract away the paths on different versions of Joomla! and different platforms. Imagine
+doing something like `KIdentifier::registerApplication('wpadmin', WORDPRESS_ADMIN_PATH);`, the possibilities are endless! 
+
+
