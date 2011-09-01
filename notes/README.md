@@ -1,0 +1,1 @@
+Free-writing/random jottles, general notes etc in here. I often have a strange writing process, so don't try to understand anything in here. 
