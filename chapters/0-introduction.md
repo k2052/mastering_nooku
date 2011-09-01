@@ -4,8 +4,6 @@
 
 # History
 
-# The two flavors of Nooku.
+# The tools you'll need.
 
-Nooku server and nooku-framework
-
-# Development Tools
+SVN basics, PHP IDE suggestions etc + links.
