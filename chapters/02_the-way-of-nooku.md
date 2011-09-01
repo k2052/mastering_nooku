@@ -99,5 +99,5 @@ api.
 
 E.g     
 
-This also allows us to to create one model and use it on both frontend and admin, but have aliases that mak it map
+This also allows us to to create one model and use it on both frontend and admin, but have aliases that make it map
 correctly. E.g `KFactory::map('site::com.harbour.model.boats', 'admin::com.harbour.model.boats');`                                      
