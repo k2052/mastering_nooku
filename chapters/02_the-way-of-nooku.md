@@ -93,11 +93,22 @@ doing something like `KIdentifier::registerApplication('wpadmin', WORDPRESS_ADMI
 
 
 Finally we add Adapters to KFactory. I'm not sure exactly what the purposes are for the KFactory abstractions. But it
-appears as if it allows one to alias mixins. That means we can effectively call one object with one set methods on one
-platform and then on another instantiate another object with and antirely different set methods, but still keep the same
+appears as if it allows one to alias mixins. That means we can effectively call one object with one set of methods on one
+platform and then on another instantiate another object with an entirely different set of methods, but still keep the same
 api.
 
-E.g     
-
 This also allows us to to create one model and use it on both frontend and admin, but have aliases that make it map
-correctly. E.g `KFactory::map('site::com.harbour.model.boats', 'admin::com.harbour.model.boats');`                                      
+correctly. E.g `KFactory::map('site::com.harbour.model.boats', 'admin::com.harbour.model.boats');`       
+
+## Koowa the bodyguard: What happens before every request.
+
+Now after the core of Koowa is loaded up it registers itself so tat it can sit in front of all the requests performing magic
+before the request is handed off to the extension. `JPluginHelper::importPlugin('koowa', null, true,
+KFactory::get('lib.koowa.event.dispatcher'));`
+
+The heart of is the Koowa event dispatcher which is a custom event dispatcher. [:todo] Need to figure out what exactly this
+does and write some more details. Doesn't appear to add any more hooks yet. So perhaps all thats called is
+onAfterInitialise? [/:todo]    
+                                
+The first thing we hit (via an onAfterInitialise event) is the authorization/authentication of a user. This is the beginning of the awesome magic Nooku provides. Nooku logs in the user and then the request is passed on the next events.                                  
+                     
