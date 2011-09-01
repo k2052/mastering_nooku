@@ -20,11 +20,11 @@ sure there is thought put thought into API changes. 3. Gives a good overview of 
 to read. You cant have missing methods etc. Actually that might not be accurate I cant remember if interface implementation
 methods are optional in PHP or not.  
 
-## KIdentifier
+## KIdentifier: How a path is made.
 
-It looks like pretty much everything isn't an actual object until its ran through KFactory. An indentifeir is usually used in
-the form of a string which is then parsed transparently into an object, so tthe laoder classes like KFactory, KLoader etc
-only have to split up that string once.
+It looks like pretty much everything isn't an actual object until its ran through KFactory. An identifier is usually used in
+the form of a string which is then parsed transparently into an object. Its parsed so that the loader classes like KFactory,
+KLoader etc only have to "split" up that string once. 
 
 e.g
 
@@ -32,7 +32,19 @@ e.g
 echo KFactory::get($this->getView())
     ->setLayout($layout)
     ->display();
-```    
+```
+
+Remember that concept of Joomla! applications, the distinguishing between site/administrator etc? Well thats very useful
+here. You see the KIdentifier string is first and foremost abstracted at the app level. 
+
+Lets examine an example:      
+
+
+`KLoader::load('admin::com.harbour.mappings');` first becomes `root_path/admin_app_path` which is `root_path/administrator`.
+                                                                        
+The next declaration is an extension type declaration component, module, plugin etc. So the string now becomes `root_path/administrator/components`. Next the extension name is added and the path becomes `root_path/administrator/components/com_harbour`. Next the string is split at each dot '.' and each item is appended to the path `root_path/administrator/components/com_harbour/mappings`.
+
+The final item in a path is special and treated as a file. So the final path is: `root_path/administrator/components/com_harbour/mappings/mappings.php`.    
  
 ## Adapters
 
@@ -47,5 +59,18 @@ Adapters have some sort prefix system internalized. I'm guessing this is to hold
 
 Adapters in teh context of KLoaders are used to abstract away the paths, so Koowa know where to get its
 models,views,controllers etc no matter if its on J1.5 or J1.7 or WP 2.5. That allows stuff like
-`KLoader::load('site::com.harbour.mappings');` to make sense to Koowa not matter what the platform.
+`KLoader::load('site::com.harbour.mappings');` to make sense to Koowa not matter what the platform.    
 
+Now remember those KIdentfier's? Did you wonder how it determined what was the app path? You probably assumed it was
+hardcoded into the KIdentifier class. Its actually abstracted at the Joomla! plugin level. In the plugin itself before
+loading up Koowa we first register the application names and there paths.
+
+```php
+KIdentifier::registerApplication('site' , JPATH_SITE);
+KIdentifier::registerApplication('admin', JPATH_ADMINISTRATOR);
+```  
+
+This is cool because it allows us to extend the KIdentfier if we so desire with custom paths. Like for example
+`KIdentifier::registerApplication('foo' , JPATH_SITE.DS.'specialawesomefoopath');`. In Koow's case it was done to abstract
+away the paths on different versions of Joomla! and different platforms. Imagine doing something like
+`KIdentifier::registerApplication('wpadmin', WORDPRESS_ADMIN_PATH);`, the possibilities are endless!
