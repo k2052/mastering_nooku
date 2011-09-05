@@ -110,5 +110,20 @@ The heart of is the Koowa event dispatcher which is a custom event dispatcher. [
 does and write some more details. Doesn't appear to add any more hooks yet. So perhaps all thats called is
 onAfterInitialise? [/:todo]    
                                 
-The first thing we hit (via an onAfterInitialise event) is the authorization/authentication of a user. This is the beginning of the awesome magic Nooku provides. Nooku logs in the user and then the request is passed on the next events.                                  
-                     
+The first thing we hit (via an onAfterInitialise event) is the authorization/authentication of a user. This is the beginning
+of the awesome magic Nooku provides. Nooku logs in the user and then the request is passed on to the next event.
+
+## Dispatcher
+
+Once Koowa has been loaded & the authentication phase handle the request is passed on to the root component file. Just like
+a normal Joomla! request. Heres where the magic begins to really kick into gear.  
+
+What we hit at this point is the Dispatcher which handles routing our requests. Now the dispatcher we are going to hit is
+not from Koowa but rather the extended one from com_default. [:tip] Remember *com_default* we will be seeing allot of it in
+the future. [/:tip]
+
+To get a good idea whats happening lets examine the inheritance of structure of a typical dispatcher.    
+
+ComHarbourDispatcher > ComDefaultDispatcher > KDispatcherDefault > KDispatcherAbstract > KControllerAbstract
+
+            
