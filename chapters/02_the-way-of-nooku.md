@@ -122,8 +122,36 @@ What we hit at this point is the Dispatcher which handles routing our requests. 
 not from Koowa but rather the extended one from com_default. [:tip] Remember *com_default* we will be seeing allot of it in
 the future. [/:tip]
 
-To get a good idea whats happening lets examine the inheritance of structure of a typical dispatcher.    
+To get a good idea whats happening lets examine the inheritance of a typical dispatcher.    
 
-ComHarbourDispatcher > ComDefaultDispatcher > KDispatcherDefault > KDispatcherAbstract > KControllerAbstract
+`ComHarbourDispatcher > ComDefaultDispatcher > KDispatcherDefault > KDispatcherAbstract > KControllerAbstract`      
+
+Thats a mouthful isn't it? It may seem like allot but this amount of inheritance means we gain allot of power for free.   
+
+If we take a look at KControllerAbstract we can start to gleam a great deal about how the dispatcher ultimately works. 
+
+First of all every class has construct that passes a KConfig object to the parent class. We'll examine KConfig in more
+detail but for now just think of it as a fancy interface to an array. In other words, every object in KConfig maps to
+KConfig::_data[$object_name].
+
+This passing of the config allows Koowa to slowly build things up, allowing classes to independently do the work and pass
+this information along in a consistent manner to later classes.
+
+In the case of the dispatcher the first that happens is KControllerAbstract gather information about the behaviors and sets
+the current request object.
+
+```php
+// Set the table behaviors
+if(!empty($config->behaviors)) {
+    $this->addBehavior($config->behaviors);
+} 
+
+//Set the request
+$this->setRequest((array) KConfig::toData($config->request));
+```
+ 
+KDispatcherAbstract dertermines the current controller and registers after callbacks [:see] see (add links here) for info
+about callbacks.[/:see] for the dispatch method.
+
 
             
