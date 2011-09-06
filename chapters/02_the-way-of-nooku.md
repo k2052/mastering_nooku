@@ -172,7 +172,13 @@ inheritance) and determines what method needs to be called; in this case `_actio
 
 ## The Controller & View
 
-The controllers and views are the heart of a Nooku powered extension, they determine what gets done, where it gets done, and
+The controllers and views are the core of a Nooku powered extension, they determine what gets done, where it gets done, and
 how its displayed to the end user.  
 
-Lets examine the inheritance of a typical controller
+At the simplest level you don't even need to create a controller, Koowa will fall back to a default controller that contains
+basic REST actions for your model. [:see] Link to glossary on REST here[/:see] You'll be seeing allot more of REST esque
+stuff; Nooku at its heart is a model centric framework.
+
+Lets examine the inheritance of a typical controller. 
+
+`ComDefaultControllerDefault > KControllerService > KControllerResource > KControllerAbstract`
