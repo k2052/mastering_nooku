@@ -12,7 +12,7 @@ JLoader::import('libraries.koowa.loader.loader', JPATH_ROOT);
 KLoader itself has a few basic prerequisites. Nothing complicated is done to load these, its jut done using a require_once
 and with Koowa::getPath();. First it grabs exception handling,
 
-As a side note both Exception and identifier are misspelled.
+{::observation} As a side note both Exception and identifier are misspelled.{:/observation}
 
 It looks like Koowa follows a strict convention of first creating interfaces and then implementations. I'm not sure if I
 like the obsessive level of this, but I imagine it accomplishes allot; 1. Makes the core easily extendable. 2. Makes sure
@@ -107,9 +107,9 @@ Now after the core of Koowa is loaded up it registers itself so tat it can sit i
 before the request is handed off to the extension. `JPluginHelper::importPlugin('koowa', null, true,
 KFactory::get('lib.koowa.event.dispatcher'));`
 
-The heart of is the Koowa event dispatcher which is a custom event dispatcher. [:todo] Need to figure out what exactly this
+The heart of is the Koowa event dispatcher which is a custom event dispatcher. {::todo} Need to figure out what exactly this
 does and write some more details. Doesn't appear to add any more hooks yet. So perhaps all thats called is
-onAfterInitialise? [/:todo]    
+onAfterInitialise? {:/todo}
                                 
 The first thing we hit (via an onAfterInitialise event) is the authorization/authentication of a user. This is the beginning
 of the awesome magic Nooku provides. Nooku logs in the user and then the request is passed on to the next event.
@@ -120,8 +120,8 @@ Once Koowa has been loaded & the authentication phase handle the request is pass
 a normal Joomla! request. Heres where the magic begins to really kick into gear.  
 
 What we hit at this point is the Dispatcher which handles routing our requests. Now the dispatcher we are going to hit is
-not from Koowa but rather the extended one from com_default. [:tip] Remember *com_default* we will be seeing allot of it in
-the future. [/:tip]
+not from Koowa but rather the extended one from com_default. {::tip} Remember *com_default* we will be seeing allot of it in
+the future. {:/tip}
 
 To get a good idea whats happening lets examine the inheritance of a typical dispatcher.    
 
@@ -136,7 +136,7 @@ more detail but for now just think of it as a fancy interface to an array. In ot
 KConfig::_data[$object_name].
 
 Secondly, every class has an initialize method which also takes a KConfig object and then calls the parent initialize.
-[:note] The initialize method is actually called by KObject, which nearly all Koowa classes inherit from. [/:note]   
+{::note} The initialize method is actually called by KObject, which nearly all Koowa classes inherit from. {:/note}   
 
 This passing of the config allows Koowa to slowly build things up, allowing classes to independently do the work and pass
 this information along in a consistent manner to later classes.       
@@ -203,14 +203,16 @@ Nooku is a lazy devs framework and a lazy dev is a more productive dev.
 
 Models in Nooku are more than just a layer between you are your database, they're a layer between you and your data. Nooku
 does not care what your data is and where you get it from. Your model could be storing its text in files, in another DB like
-mongodb or making API calls. This is gives you an incredible amount flexibility. [:note] It does however mean your models
+mongodb or making API calls. This is gives you an incredible amount flexibility. {::note} It does however mean your models
 aren't fully abstracted with an ORM. Of course nothing stops you from using an ORM Nooku just doesn't provide a full fledged
-one out of the box. [/:note]         
+one out of the box. {:/note}         
 
 
 As always lets start out by examining the inheritance of a typical model and seeing what we get.
 
-`ComArticlesModelArticles > ComDefaultModelDefault > KModelDefault`
+`ComArticlesModelArticles > ComDefaultModelDefault > KModelDefault > KModelTable > KModelAbstract` 
+
+{::observation} {:/observation} 
 
 ## Getting The Data
 
