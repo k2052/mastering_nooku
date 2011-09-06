@@ -72,7 +72,8 @@ KLoader::addAdapter(new KLoaderAdapterKoowa(Koowa::getPath()));
 KLoader::addAdapter(new KLoaderAdapterJoomla(JPATH_LIBRARIES));
 ```     
 
-The end result of the above is an internal KLoader array like this `$_adapters = array('K' => $adapterObject, 'J' => $adapterObject);`
+The end result of the above is an internal KLoader array like this `$_adapters = array('K' => $adapterObject, 'J' =>
+$adapterObject);`
 
 This is how Koowa determines both the path to a file and its class name.
                        
@@ -134,14 +135,14 @@ First and foremost every class has a construct that passes a KConfig object to t
 more detail but for now just think of it as a fancy interface to an array. In other words, every object in KConfig maps to
 KConfig::_data[$object_name].
 
-This passing of the config allows Koowa to slowly build things up, allowing classes to independently do the work and pass
-this information along in a consistent manner to later classes.    
-
 Secondly, every class has an initialize method which also takes a KConfig object and then calls the parent initialize.
-[:note] The initialize method is actually called by KObject which nearly all Koowa classes inherit from. [/:note]
+[:note] The initialize method is actually called by KObject which nearly all Koowa classes inherit from. [/:note]   
 
-In the case of the dispatcher the first that happens is KControllerAbstract gather information about the behaviors and sets
-the current request object.
+This passing of the config allows Koowa to slowly build things up, allowing classes to independently do the work and pass
+this information along in a consistent manner to later classes.      
+
+In the case of the dispatcher the first thing that happens is KControllerAbstract gathers information about the behaviors
+and thensets the current request object.  
 
 ```php
 // Set the table behaviors
