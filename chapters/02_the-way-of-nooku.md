@@ -170,7 +170,7 @@ When we call the dispatch method `echo KFactory::get('admin::com.articles.dispat
 `KControllerAbstract::__call()` first. `__call` then gets list of the action methods (which we've been inserting through
 inheritance) and determines what method needs to be called; in this case `_actionDispatch()`. 
 
-## The Controller & View
+## The Controller
 
 The controllers and views are the core of a Nooku powered extension, they determine what gets done, where it gets done, and
 how its displayed to the end user.  
@@ -197,9 +197,17 @@ You might be wondering why there is any need for a controller when Nooku already
 is very little need, you'll find most of your controllers are no more than 100 lines. This is why Nooku is so powerful. With
 a well designed & standard model like REST at its core, the amount of code needed to develop an app is drastically reduced. 
 
-Nooku is a lazy devs framework and a lazy dev is a more productive dev.
+Nooku is a lazy devs framework and a lazy dev is a more productive dev.         
 
-# Models  
+# The View          
+
+Lets take a look at the inheritance of a typical view
+
+`ComArticlesViewArticleHtml > ComDefaultViewHtml > KViewDefault > KViewHtml > KViewTemplate > KViewAbstract`    
+
+Views can be any type of format not just HTML, they can output JSON, XML, RSS etc.
+
+# The Model 
 
 Models in Nooku are more than just a layer between you are your database, they're a layer between you and your data. Nooku
 does not care what your data is and where you get it from. Your model could be storing its text in files, in another DB like
@@ -226,12 +234,17 @@ It seems that at least for now the only thing thats done in the inheritance chai
 heart of the model is really KModelTable, which is an abstraction over (you guessed it) a DB table. It provides methods for
 managing connections, making basic queries like; DELETE, GET LIST etc, and sets some basic info about the DB table. 
 
-
-
-
-## Getting The Data
+## What a model needs
 
 ## States 
 
-## Behaviors 
+## Behaviors
 
+Yoy  
+
+# The whole picture: Models, Controllers & Views meet.
+
+The central thing we've discovered through all of this is that Nooku is oriented around resources, it is RESTful. This helps
+us extrapolate a great deal:
+
+## 1. Views are inherently linked to the model name.
