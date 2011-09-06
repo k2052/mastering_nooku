@@ -161,6 +161,5 @@ ultimately determine what action method should be hit for a given route. In KDis
 action methods, `_actionDispatch()`. A dispatch action is going to determine what controller method should be called for a
 given route.
 
-ComDefaultDispatcher is where things get set in motion. In the initialize the controller is set to the view, if the
-view exists in the config. This gives Koowa all the information it needs to route request.       
-
+ComDefaultDispatcher is where things get set in motion. In the initialize method the controller is set to the view; but only
+if the view exists in the config. This gives Koowa all the information it needs to route request. 
