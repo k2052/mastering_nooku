@@ -205,7 +205,12 @@ Lets take a look at the inheritance of a typical view
 
 `ComArticlesViewArticleHtml > ComDefaultViewHtml > KViewDefault > KViewHtml > KViewTemplate > KViewAbstract`    
 
-Views can be any type of format not just HTML, they can output JSON, XML, RSS etc.
+The first thing we notice is that views can be any type of format not just HTML, they can output JSON, XML, RSS etc. Yu
+could just as easily create a view that inherits from KViewJson.  
+
+By default a view is determined based on the view name i.e view=boats the format is in turn determined by the format var
+format=json. The formats for a view map directly to filenames i.e `json.php` for json and `html.php` for html.
+
 
 # The Model 
 
