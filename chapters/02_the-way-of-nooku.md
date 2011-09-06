@@ -191,4 +191,10 @@ and where to get the thing to render. It needs to know about its resources. So a
 handles things like setModel(), getModel(), setView(), getView() etc. 
 
 KControllerService takes the basic resource model and extends it to its logical conclusions, i.e REST. KControllerService
-provides BROWSE, READ, EDIT, ADD, DELETE and more. All these methods take place on the model, or resource.
+provides BROWSE, READ, EDIT, ADD, DELETE and more. All these methods take place on the model, or resource. 
+
+You might be wondering why there is any need for a controller when Nooku already provides the REST model. The truth is there
+is very little need, you'll find most of your controllers are no more than 100 lines. This is why Nooku is so powerful. With
+a well designed & standard model like REST at its core, the amount of code needed to develop an app is drastically reduced. 
+
+Nooku is a lazy devs framework, and a lazy dev is a more productive dev.
