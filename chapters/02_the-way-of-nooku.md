@@ -240,8 +240,6 @@ managing connections, making basic queries like; DELETE, GET LIST etc, and sets 
 
 ## Behaviors
 
-Yoy  
-
 # The whole picture: Models, Controllers & Views meet.
 
 The central thing we've discovered through all of this is that Nooku is oriented around resources, it is RESTful. This helps
