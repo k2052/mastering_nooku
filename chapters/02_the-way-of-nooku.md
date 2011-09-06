@@ -172,3 +172,7 @@ inheritance) and determines what method needs to be called; in this case `_actio
 
 ## The Controller & View
 
+The controllers and views are the heart of a Nooku powered extension, they determine what gets done, where it gets done, and
+how its displayed to the end user.  
+
+Lets examine the inheritance of a typical controller
