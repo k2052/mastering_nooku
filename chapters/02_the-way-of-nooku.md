@@ -62,7 +62,7 @@ Adapters have some sort prefix system internalized. I'm guessing this is to hold
 
 Adapters in the context of KLoader's are used to abstract away the paths, so Koowa knows where to get its
 models,views,controllers etc no matter if its running on J1.5 or J1.7 or WP 2.5. That allows stuff like
-`KLoader::load('site::com.harbour.mappings');` to make sense to Koowa not matter what the platform.    
+`KLoader::load('site::com.harbour.mappings');` to make sense to Koowa regardless of the platform.    
 
 
 When we add an adapter to KLoader its added to the KLoader::_adapters array and keyed by prefix. 
