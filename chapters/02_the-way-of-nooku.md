@@ -212,7 +212,16 @@ As always lets start out by examining the inheritance of a typical model and see
 
 `ComArticlesModelArticles > ComDefaultModelDefault > KModelDefault > KModelTable > KModelAbstract` 
 
-{::observation} {:/observation} 
+{::observation}  
+KModelDefault is completely empty. Why? 
+   
+```php
+class KModelDefault extends KModelTable 
+{
+
+}   
+```
+{:/observation} 
 
 ## Getting The Data
 
