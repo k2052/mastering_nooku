@@ -181,4 +181,13 @@ stuff; Nooku at its heart is a model centric framework.
 
 Lets examine the inheritance of a typical controller. 
 
-`ComDefaultControllerDefault > KControllerService > KControllerResource > KControllerAbstract`
+`ComDefaultControllerDefault > KControllerService > KControllerResource > KControllerAbstract`    
+
+We already know what KControllerAbstract does from the dispatcher so lets start with KControllerResource.
+KControllerResource might as well be called KControllerModel because its functions essentially revolve around models.
+
+What is it that controller needs to know to get its job done? Well, it needs to know the view it should use to render things
+and where to get the thing to render. It needs to know about its resources. So as you might expect, KControllerResouce
+handles things like setModel(), getModel(), setView(), getView() etc. 
+
+KControllerService takes the basic resource model extends it to its logical conclusions, a REST one. KControllerService provides  BROWSE, READ, EDIT, ADD, DELETE and more. All these methods take place on the model, or resource.
