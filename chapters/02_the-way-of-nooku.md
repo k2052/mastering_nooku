@@ -14,8 +14,8 @@ and with Koowa::getPath();. First it grabs exception handling,
 
 As a side note both Exception and identifier are misspelled.
 
-It looks like Koowa follows a strict convention of first creating interfaces and then implementations. I'm not sure if I like
-the obsessive level of this, but I imagine it accomplishes allot though; 1. Makes the core easily extendable. 2. Makes sure
+It looks like Koowa follows a strict convention of first creating interfaces and then implementations. I'm not sure if I
+like the obsessive level of this, but I imagine it accomplishes allot; 1. Makes the core easily extendable. 2. Makes sure
 there is thought put thought into API changes. 3. Gives a good overview of the actual interface without the extra code to
 read. 4. You cant have missing methods etc. 5. Allows class type checking due to inheritance. Actually that might not be
 accurate I cant remember if interface implementation methods are optional in PHP or not.
@@ -197,7 +197,15 @@ You might be wondering why there is any need for a controller when Nooku already
 is very little need, you'll find most of your controllers are no more than 100 lines. This is why Nooku is so powerful. With
 a well designed & standard model like REST at its core, the amount of code needed to develop an app is drastically reduced. 
 
-Nooku is a lazy devs framework, and a lazy dev is a more productive dev.
+Nooku is a lazy devs framework and a lazy dev is a more productive dev.
+
+# Models  
+
+Models in Nooku are more than just a layer between you are your database, they're a layer between you and your data. Nooku
+does not care what your data is and where you get it from. Your model could be storing its text in files, in another DB like
+mongodb or making API calls. This is gives you an incredible amount flexibility. [:note] It does however mean your models
+aren't fully abstracted with an ORM. Of course nothing stops you from using an ORM Nooku just doesn't provide a full fledged
+one out of the box. [/:note]  
 
 
-# Models
+
