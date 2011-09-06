@@ -190,5 +190,5 @@ What is it that controller needs to know to get its job done? Well, it needs to 
 and where to get the thing to render. It needs to know about its resources. So as you might expect, KControllerResouce
 handles things like setModel(), getModel(), setView(), getView() etc. 
 
-KControllerService takes the basic resource model extends it to its logical conclusions, a REST one. KControllerService
+KControllerService takes the basic resource model and extends it to its logical conclusions, i.e REST. KControllerService
 provides BROWSE, READ, EDIT, ADD, DELETE and more. All these methods take place on the model, or resource.
