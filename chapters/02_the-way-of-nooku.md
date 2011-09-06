@@ -198,3 +198,6 @@ is very little need, you'll find most of your controllers are no more than 100 l
 a well designed & standard model like REST at its core, the amount of code needed to develop an app is drastically reduced. 
 
 Nooku is a lazy devs framework, and a lazy dev is a more productive dev.
+
+
+# Models
