@@ -207,13 +207,12 @@ mongodb or making API calls. This is gives you an incredible amount flexibility.
 aren't fully abstracted with an ORM. Of course nothing stops you from using an ORM Nooku just doesn't provide a full fledged
 one out of the box. {:/note}         
 
-
 As always lets start out by examining the inheritance of a typical model and seeing what we get.
 
 `ComArticlesModelArticles > ComDefaultModelDefault > KModelDefault > KModelTable > KModelAbstract` 
 
 {::observation}  
-KModelDefault is completely empty. Why? 
+KModelDefault is completely empty. Why? Probably should ask on the mailing list. Curious. 
    
 ```php
 class KModelDefault extends KModelTable 
@@ -221,7 +220,11 @@ class KModelDefault extends KModelTable
 
 }   
 ```
-{:/observation} 
+{:/observation}  
+
+It seems that at least for now the only thing tats done in the inheritance chain is a build up of a few states. So the heart
+of the model is really KModelTable which is an abstraction over a (you guessed it) a DB table. Itprovides methods for
+managing connections, making basic queries like; DELETE, GET LIST etc,
 
 ## Getting The Data
 
