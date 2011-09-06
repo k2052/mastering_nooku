@@ -130,12 +130,14 @@ Thats a mouthful isn't it? It may seem like allot but this amount of inheritance
 
 If we take a look at KControllerAbstract we can start to gleam a great deal about how the dispatcher ultimately works. 
 
-First of all every class has construct that passes a KConfig object to the parent class. We'll examine KConfig in more
-detail but for now just think of it as a fancy interface to an array. In other words, every object in KConfig maps to
+First and foremost every class has a construct that passes a KConfig object to the parent class. We'll examine KConfig in
+more detail but for now just think of it as a fancy interface to an array. In other words, every object in KConfig maps to
 KConfig::_data[$object_name].
 
 This passing of the config allows Koowa to slowly build things up, allowing classes to independently do the work and pass
-this information along in a consistent manner to later classes.
+this information along in a consistent manner to later classes.    
+
+Secondly, every class has an initialize method which also takes a KConfig object and then calls the parent initialize. [:note] The initialize method is actually called by KObject which nearly all Koowa classes inherit from. [/:note]
 
 In the case of the dispatcher the first that happens is KControllerAbstract gather information about the behaviors and sets
 the current request object.
@@ -149,12 +151,8 @@ if(!empty($config->behaviors)) {
 //Set the request
 $this->setRequest((array) KConfig::toData($config->request));
 ```
- 
 KDispatcherAbstract/KDispatcherDefault determines the current controller and registers after callbacks [:see] see (add links
-here) for info about callbacks.[/:see] for the dispatch method.
+here) for info about callbacks.[/:see] for the dispatch method. It also takes the current request and appends it to the
+config.
 
-
-
-
-
-            
+ComDefaultDispatcher is where the real stuff starts to occur. 
