@@ -205,7 +205,16 @@ Models in Nooku are more than just a layer between you are your database, they'r
 does not care what your data is and where you get it from. Your model could be storing its text in files, in another DB like
 mongodb or making API calls. This is gives you an incredible amount flexibility. [:note] It does however mean your models
 aren't fully abstracted with an ORM. Of course nothing stops you from using an ORM Nooku just doesn't provide a full fledged
-one out of the box. [/:note]  
+one out of the box. [/:note]         
 
 
+As always lets start out by examining the inheritance of a typical model and seeing what we get.
+
+`ComArticlesModelArticles > ComDefaultModelDefault > KModelDefault`
+
+## Getting The Data
+
+## States 
+
+## Behaviors 
 
