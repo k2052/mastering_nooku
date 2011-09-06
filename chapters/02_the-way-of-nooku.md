@@ -150,7 +150,7 @@ if(!empty($config->behaviors)) {
 $this->setRequest((array) KConfig::toData($config->request));
 ```
  
-KDispatcherAbstract dertermines the current controller and registers after callbacks [:see] see (add links here) for info
+KDispatcherAbstract determines the current controller and registers after callbacks [:see] see (add links here) for info
 about callbacks.[/:see] for the dispatch method.
 
 
