@@ -136,13 +136,13 @@ more detail but for now just think of it as a fancy interface to an array. In ot
 KConfig::_data[$object_name].
 
 Secondly, every class has an initialize method which also takes a KConfig object and then calls the parent initialize.
-[:note] The initialize method is actually called by KObject which nearly all Koowa classes inherit from. [/:note]   
+[:note] The initialize method is actually called by KObject, which nearly all Koowa classes inherit from. [/:note]   
 
 This passing of the config allows Koowa to slowly build things up, allowing classes to independently do the work and pass
 this information along in a consistent manner to later classes.      
 
 In the case of the dispatcher the first thing that happens is KControllerAbstract gathers information about the behaviors
-and thensets the current request object.  
+and then sets the current request object.  
 
 ```php
 // Set the table behaviors
