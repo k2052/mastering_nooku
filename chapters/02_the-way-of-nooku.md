@@ -222,9 +222,12 @@ class KModelDefault extends KModelTable
 ```
 {:/observation}  
 
-It seems that at least for now the only thing tats done in the inheritance chain is a build up of a few states. So the heart
-of the model is really KModelTable which is an abstraction over a (you guessed it) a DB table. Itprovides methods for
-managing connections, making basic queries like; DELETE, GET LIST etc,
+It seems that at least for now the only thing thats done in the inheritance chain is a build up of a few states. So the
+heart of the model is really KModelTable, which is an abstraction over (you guessed it) a DB table. It provides methods for
+managing connections, making basic queries like; DELETE, GET LIST etc, and sets some basic info about the DB table. 
+
+
+
 
 ## Getting The Data
 
