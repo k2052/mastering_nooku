@@ -139,7 +139,7 @@ Secondly, every class has an initialize method which also takes a KConfig object
 [:note] The initialize method is actually called by KObject, which nearly all Koowa classes inherit from. [/:note]   
 
 This passing of the config allows Koowa to slowly build things up, allowing classes to independently do the work and pass
-this information along in a consistent manner to later classes.      
+this information along in a consistent manner to later classes.       
 
 In the case of the dispatcher the first thing that happens is KControllerAbstract gathers information about the behaviors
 and then sets the current request object.  
@@ -152,9 +152,15 @@ if(!empty($config->behaviors)) {
 
 //Set the request
 $this->setRequest((array) KConfig::toData($config->request));
-```
+```    
+
 KDispatcherAbstract/KDispatcherDefault determines the current controller and registers after callbacks [:see] see (add links
 here) for info about callbacks.[/:see] for the dispatch method. It also takes the current request and appends it to the
-config.
+config. The config inforumation we've been passing around has also allowed us to build up a command chain, so that Koowa can
+ultimately determine what action method should be hit for a given route. In KDispatcherAbstract we define the first of these
+action methods, `_actionDispatch()`. A dispatch action is going to determine what controller method should be called for a
+given route.
 
-ComDefaultDispatcher is where the real stuff starts to occur. 
+ComDefaultDispatcher is where things get set in motion. In the initialize the controller is set to the view, if the
+view exists in the config. This gives Koowa all the information it needs to route request.       
+
