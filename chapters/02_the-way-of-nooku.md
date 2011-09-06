@@ -156,10 +156,19 @@ $this->setRequest((array) KConfig::toData($config->request));
 
 KDispatcherAbstract/KDispatcherDefault determines the current controller and registers after callbacks [:see] see (add links
 here) for info about callbacks.[/:see] for the dispatch method. It also takes the current request and appends it to the
-config. The config inforumation we've been passing around has also allowed us to build up a command chain, so that Koowa can
-ultimately determine what action method should be hit for a given route. In KDispatcherAbstract we define the first of these
+config. The config information we've been passing around has also allowed us to build up a command chain, so that Koowa can
+ultimately determine what action method should be hit for a given route. 
+
+In KDispatcherAbstract we define the first of these
 action methods, `_actionDispatch()`. A dispatch action is going to determine what controller method should be called for a
-given route.
+given route. 
 
 ComDefaultDispatcher is where things get set in motion. In the initialize method the controller is set to the view; but only
-if the view exists in the config. This gives Koowa all the information it needs to route request. 
+if the view exists in the config. This gives Koowa all the information it needs to route request.   
+
+When we call the dispatch method `echo KFactory::get('admin::com.articles.dispatcher')->dispatch()` we actually hit
+`KControllerAbstract::__call()` first. `__call` then gets list of the action methods (which we've been inserting through
+inheritance) and determines what method needs to be called; in this case `_actionDispatch()`. 
+
+## The Controller & View
+
