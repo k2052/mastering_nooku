@@ -176,7 +176,7 @@ The controllers and views are the core of a Nooku powered extension, they determ
 how its displayed to the end user.  
 
 At the simplest level you don't even need to create a controller, Koowa will fall back to a default controller that contains
-basic REST actions for your model. [:see] Link to glossary on REST here[/:see] You'll be seeing allot more of REST esque
+basic REST actions for your model. {::see} Link to glossary on REST here. {:/see} You'll be seeing allot more of REST esque
 stuff; Nooku at its heart is a model centric framework.
 
 Lets examine the inheritance of a typical controller. 
@@ -211,6 +211,27 @@ could just as easily create a view that inherits from KViewJson.
 By default a view is determined based on the view name i.e view=boats the format is in turn determined by the format var
 format=json. The formats for a view map directly to filenames i.e `json.php` for json and `html.php` for html.
 
+ComDefaultViewHTML isn't too special; all thats added is an editor helper and the layout for the view is set to the config.
+Nothing at all happens in KViewDefault and its not until KViewHtml that the first interesting thing occurs. 
+
+In KViewHtml the mimetype is set and some template_filters are appended. But the most important thing of all is that the
+model is loaded and "associated" with the view. This is where the data we need to display becomes accessible to the view.
+
+KViewTemplate handles all the awesome stuff for getting data into the view. It provides; the assignment methods for the
+view's data, fluent interfaces{:note} Fluent interfaces are setter methods for variables e.g `$view->title('name')`.
+{:/note}, and handles the the template for the view. The display method{:note} The one in KViewHtml just sets the model.
+{:/note} that actually renders the template file is located here.
+
+As might be expected, KViewAbstract contains the connecting elements that link a view up to its model; provides an
+identifier (a KIndentifier object) and generates the view's name etc. This the core of the view and without it the view
+wouldn't know what to do. 
+
+
+## Helpers
+
+## Layouts
+
+## Filters
 
 # The Model 
 
@@ -237,17 +258,27 @@ class KModelDefault extends KModelTable
 
 It seems that at least for now the only thing thats done in the inheritance chain is a build up of a few states. So the
 heart of the model is really KModelTable, which is an abstraction over (you guessed it) a DB table. It provides methods for
-managing connections, making basic queries like; DELETE, GET LIST etc, and sets some basic info about the DB table. 
+managing connections, making basic queries like; DELETE, GET LIST etc, and sets some basic info about the DB table.
+
+Before we move on its important that we understand a few basic concepts about models.
 
 ## What a model needs
 
 ## States 
 
-## Behaviors
+## Behaviors    
+
+Behaviors are a very powerful feature of Nooku they allow you to mixin and re-use common functionality on your models. This
+mean you can quickly leverage the previous work of others and literally construct your models with bits and pieces, like
+legos.
+
+Behaviors can be thought of as collections of functionality, they can provide; extra methods, extra fields, extra states
+etc. Behaviors although the can be made of any thing are typically made up features to achieve one specific functionality.
+An example might be tagging, versioning, or slug generation..
 
 # The whole picture: Models, Controllers & Views meet.
 
 The central thing we've discovered through all of this is that Nooku is oriented around resources, it is RESTful. This helps
 us extrapolate a great deal:
 
-## 1. Views are inherently linked to the model name.
+## 1. Everything inherently linked to the model.
