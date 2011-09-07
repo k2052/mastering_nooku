@@ -218,8 +218,8 @@ In KViewHtml the mimetype is set and some template_filters are appended. But the
 model is loaded and "associated" with the view. This is where the data we need to display becomes accessible to the view.
 
 KViewTemplate handles all the awesome stuff for getting data into the view. It provides; the assignment methods for the
-view's data, fluent interfaces{:note} Fluent interfaces are setter methods for variables e.g `$view->title('name')`.
-{:/note}, and handles the the template for the view. The display method{:note} The one in KViewHtml just sets the model.
+view's data, fluent interfaces{::note} Fluent interfaces are setter methods for variables e.g `$view->title('name')`.
+{:/note}, and handles the the template for the view. The display method{::note} The one in KViewHtml just sets the model.
 {:/note} that actually renders the template file is located here.
 
 As might be expected, KViewAbstract contains the connecting elements that link a view up to its model; provides an
