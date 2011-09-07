@@ -281,4 +281,4 @@ An example might be tagging, versioning, or slug generation..
 The central thing we've discovered through all of this is that Nooku is oriented around resources, it is RESTful. This helps
 us extrapolate a great deal:
 
-## 1. Everything inherently linked to the model.
+## 1. Everything is inherently linked to the model.
