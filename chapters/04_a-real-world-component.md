@@ -21,14 +21,36 @@ script is hard and Nicholas did all the painful discovery work so I never had to
 Joomla! world Nik! [:/note]  
 
 
-# The model.       
+# The model.     
+
+Before we move on lets create our models dir, cd to code/administrator/component then `mkdir models`.     
+
+## Settings.
+
+We need a settings model to store keys and stuff, and stuff.
 
 ## Artifact
 
 In Forge the concept of an artifact is essential, its a basically an extension listing. For now we can simplify the model and
-allow it to exist entirely via API. But later on we might want to cache the data locally in a DB.   
+allow it to get data entirely via API. But later on we might want to cache the data locally in a DB.   
 
-Lets go ahead create our model file 
+Lets go ahead create our model file. Do `touch models/artifacts.php`.
+
+Now declare the class.
+
+```php
+class ComForgeModelArtifacts extends ComDefaultModelDefault
+{
+	public function __construct(KConfig $config)
+	{
+		parent::__construct($config);
+	} 
+}
+```
+
+Now we're going to need access to our API, so the constructor lets initialize an instance.
+
+$forge = Forge_API::getInstance($pubKey = null, $privateKey = null, $config = null);
 
 ## Extensions       
 
