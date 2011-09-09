@@ -41,6 +41,18 @@ CREATE TABLE IF NOT EXISTS `#__forge_settings` (
   `public_key` varchar(255) NOT NULL,
   `private_key` varchar(255) NOT NULL,
 );
+```  
+
+No lets create placeholder class and file `touch models/settings.php`.
+
+```php
+class ComForgeModelSettings extends ComDefaultModelDefault
+{
+	public function __construct(KConfig $config)
+	{
+		parent::__construct($config);
+	} 
+} 
 ```
 
 ## Artifact
