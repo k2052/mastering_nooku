@@ -27,7 +27,21 @@ Before we move on lets create our models dir, cd to code/administrator/component
 
 ## Settings.
 
-We need a settings model to store keys and stuff, and stuff.
+We need a settings model to store keys and stuff, and stuff. We will just create some field in the DB and let Nooku handle
+the magic for now; but like to declare classes anyway so I know what models I've.
+
+First create the DB data 
+
+```sql
+CREATE TABLE IF NOT EXISTS `#__forge_settings` (     
+  `forge_setting_id` SERIAL,
+  `name` varchar(255) NOT NULL,
+  `desc` mediumtext NOT NULL,
+  `source_url` varchar(255) NOT NULL,
+  `public_key` varchar(255) NOT NULL,
+  `private_key` varchar(255) NOT NULL,
+);
+```
 
 ## Artifact
 
@@ -48,9 +62,14 @@ class ComForgeModelArtifacts extends ComDefaultModelDefault
 }
 ```
 
-Now we're going to need access to our API, so the constructor lets initialize an instance.
+Now we're going to need access to our API, so in the constructor lets initialize an instance of Forge_API.
+          
+```php    
+$settings = KFactory::tmp('admin::com.forge.model.settings');
+$this->fapi = Forge_API::getInstance(null, null, null, $this->settings->getItems());
+```   
 
-$forge = Forge_API::getInstance($pubKey = null, $privateKey = null, $config = null);
+Make sure to add `public $fapi;` to the class.
 
 ## Extensions       
 
