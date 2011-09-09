@@ -274,7 +274,12 @@ legos.
 
 Behaviors can be thought of as collections of functionality, they can provide; extra methods, extra fields, extra states
 etc. Behaviors although the can be made of any thing are typically made up features to achieve one specific functionality.
-An example might be tagging, versioning, or slug generation..
+An example might be tagging, versioning, or slug generation.
+
+## Working with models.
+
+1. Get a model: `$model = KFactory::get('admin::com.categories.model.categories');`
+2. Setting states:
 
 # The whole picture: Models, Controllers & Views meet.
 
