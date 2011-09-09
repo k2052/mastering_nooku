@@ -21,4 +21,4 @@ script is hard and Nicholas did all the painful discovery work so I never had to
 Joomla! world Nik! [:/note]  
 
 
-# The frontend
+# The model.
