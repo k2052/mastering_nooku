@@ -5,7 +5,3 @@ Need to make sure I provide some info about the difference between nooku content
 # Why use Nooku?  
 
 # History
-
-# The tools you'll need.
-
-SVN basics, PHP IDE suggestions etc + links.
