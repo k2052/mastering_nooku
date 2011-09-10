@@ -3,11 +3,13 @@
 We will be writing a component called Forge. Its a component for managing & installing extensions. What makes it special? It
 takes care of dependancies, auto updates & even keeps track of security alerts. 
 
-Sound cool? Lets get started.
+Sound cool? Lets get started. 
 
-# Getting setup
+# Getting setup   
 
-The first thing we need to do is add ourself a lib directory and clone git://github.com/bookworm/forge.git. 
+You need to first create development folder and register your component. Refer to chapter three and get that done first.
+
+Then we need to do is add ourself a lib directory and clone git://github.com/bookworm/forge.git. 
 
 Do this from your code/administrator/component folder: `mkdir lib` `cd lib && git clone git://github.com/bookworm/forge.git`
 then cd `forge`. The forge has a __forge_api__ so now do the following `git submodule init` and `git submodule update`. The
@@ -81,30 +83,48 @@ $settings = KFactory::tmp('admin::com.forge.model.settings');
 $this->fapi = Forge_API::getInstance(null, null, null, $this->settings->getItems());
 ```   
 
-Make sure to add `public $fapi;` to the class.
+Make sure to add `public $fapi;` to the class.  
 
-## Extensions       
+## Extensions   
 
-## Registering the extension
- 
-The last thing we need to do is register our component.     
+We are going to need some way to list the currently installed extensions. We are going to need to associate an extension
+with not only with the joomla extension data but with and artifact as well. To do do that we need to introduce the idea of
+foreign keys and joins. A one-to-many relationship needs to be establish between the extension, the artifact and Joomla
+extensions table. We're also going to need to abstract away the differences on different Joomla! versions. {::note} On
+Joomla! 1.6 all extensions are under jos_extensions and on 1.5 different types are split up between different tables.
+{:/note}
 
-### Joomla 1.5   
+What I'd like to have interface wise is the extension details from Joomla! tables accessible directly on the model, and the
+artifact properties accessible within an object. `$model->name` and `$model->artifact->vulnerabilities` respectively.
+{::note} Its important to have the artifact as an actual model instance so the we make API queries when we call its data.
+{:/note} 
 
-```sql
-INSERT INTO `#__components` ( `id`, `name`, `link`, `menuid`, `parent`, 
-`admin_menu_link`, `admin_menu_alt`, `option`, `ordering`, `admin_menu_img`, 
-`iscore`, `params`, `enabled`) 
-VALUES(NULL, 'Forge', 'option=com_forge', 0, 0,'option=com_forge', 'Forge', 
-'com_forge', 0, '', 0, '', 1)    
-```
- 
-### Joomla 1.6                        
+Now at the moment I've very little idea how joins and this relationship should be accomplished in Nooku. So let experiment a
+little and see how they work. Digging around in google turns this thread
+[thread](http://groups.google.com/group/nooku-framework/browse_thread/thread/e236e38d7e04071a) and their are some
+suggestions made but I like to work with real world examples; so based on the second post I'm going to look to com_terms.
 
-```sql
-INSERT INTO `#__extensions`    ( `extension_id`, `name`, `type`, `element`,
-`folder`, `client_id`, `enabled`, `access`, `protected`, `manifest_cache`, 
-`params`, `custom_data`, `system_data`, `checked_out`, `checked_out_time`, 
-`ordering`, `state`) VALUES(NULL, 'com_forge', 'component',
-'com_forge', '', '1', '1', '1', '0', '', '', '', '', 0, '0000-00-00 00:00:00','0','0'    
-```
+Pulling up the source of com_terms reveals that joins are built within `_buildQueryJoins()`. A simple search through Nooku
+reveals that `buildQueryJoins()` is automatically added to our queries. So we can assemble our joins within that function,
+but key is what happens to them afterwords. Do they automatically become model instances? My guess is no, we will have to do
+that on our own. The question is can we abstract that out so its done automagically? I'm betting yes.
+
+To get a picture of what happens to joins we're going to need to create some test code. What I like to keep arund for this
+is a copy of Nooku Server. Its got a few default components we can hackup to test things. We're going to add some stuff to
+`com_articles`.
+             
+# The controller
+
+## Settings
+
+### Listing
+
+### CRUD: Create, Read, Updating and Deleting Settings. 
+
+## Extensions   
+
+### Listing
+
+### CRUD: Create, Read, Updating and Deleting Artifacts. 
+
+## Extensions
