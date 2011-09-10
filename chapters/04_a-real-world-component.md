@@ -109,9 +109,60 @@ reveals that `buildQueryJoins()` is automatically added to our queries. So we ca
 but key is what happens to them afterwords. Do they automatically become model instances? My guess is no, we will have to do
 that on our own. The question is can we abstract that out so its done automagically? I'm betting yes.
 
-To get a picture of what happens to joins we're going to need to create some test code. What I like to keep arund for this
+To get a picture of what happens to joins we're going to need to create some test code. What I like to keep around for this
 is a copy of Nooku Server. Its got a few default components we can hackup to test things. We're going to add some stuff to
-`com_articles`.
+`com_articles`.  
+
+If we open up `models/articles.php` we can see builQueryJoins() what we're going to do first is the model. Open up `articles.php` and add the following {::note} You may have to do `touch output.txt` first {:/note}
+
+```php
+$model = KFactory::get('admin::com.articles.model.articles');  
+ob_start();
+var_dump($model);
+$out = ob_get_clean();     
+file_put_contents(dirname(__FILE__) . DS .'output.txt', $out);
+```  
+Whoa thats allot of data! So, how can we reduce this and get something we can work with? Lets try changing the output
+buffer to this:
+
+```php
+print_r(get_class_methods($model));       
+print_r(get_object_vars($model));
+``` 
+
+Now have a list of stuff to get things from lets try dump `getState` and see what happens `print_r($model->getState()); `.
+Interesting look at all the state vars. Now what weened is an actual item. My first though was to dump `$model->getList()`
+but returning all the data results in something like 76 MB of data. So we need to get only one item. 
+
+I'm going to try and treat this object as an array but I get not output selecting the first elem and dumping it. Which means
+we probably have some sort of object. Lets debug that and get its type.
+
+```php
+$list = $model->getList();
+echo gettype($list);
+``` 
+
+Yep just as I expected, its an object. Perhaps we have some querying helper methods available lets try dumping
+`$model->getList()->first()` and `$model->getList()->first()`. No cigar, both return 500 errors. This probably means non
+existent methods. So lets get a list of methods and try to find something we can use.
+
+```php
+print_r(get_class_methods($model->getList()));       
+print_r(get_object_vars($model->getList()));
+```
+
+And voila, guess we should have done that first. Lets use the toArray method 
+
+```php
+$array = $model->getList()->toArray();  
+print_r($array[0]);
+```
+
+`Undefined offset` Huh? Shouldn't we have an array of items? Lets print the whole thing `print_r($array)` and pray it
+doesn't crash php. Hmm, pretty small output must mean that toArray is a true conversion, and grabs all the nested stuff. I'm
+beginning to wonder if our individual items are actual models. 
+
+Lets try something else
              
 # The controller
 
