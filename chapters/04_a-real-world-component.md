@@ -159,8 +159,9 @@ print_r($array[0]);
 ```
 
 `Undefined offset` Huh? Shouldn't we have an array of items? Lets print the whole thing `print_r($array)` and pray it
-doesn't crash php. Hmm, pretty small output must mean that toArray is a true conversion, and grabs all the nested stuff. I'm
-beginning to wonder if our individual items are actual models. 
+doesn't crash php. Hmm, pretty small output must mean that toArray is a true conversion, and grabs all the nested stuff. It
+looks like our array keys are not ordered like I expected, they appear to be based on the DB ids. I'm beginning to wonder if
+our individual items are actual model instances.
 
 Lets try something else
              
