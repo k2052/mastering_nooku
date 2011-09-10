@@ -163,7 +163,16 @@ doesn't crash php. Hmm, pretty small output must mean that toArray is a true con
 looks like our array keys are not ordered like I expected, they appear to be based on the DB ids. I'm beginning to wonder if
 our individual items are actual model instances.
 
-Lets try something else
+With our new found knowledge we can dump specific articles.
+
+```php
+$articles = $model->getList()->toArray();
+print_r($articles[43]);
+```    
+
+Nothing but nested arrays. For this use case it seems we've discovered an inadequacy in the Nooku base classes. Lets fix it and extend them. This is covered in Chapter 8 but if you'd like to skip ahead just keep reading.
+
+We need to download and install com_tena to continue onward..... Writing Chapt8 more here later. 
              
 # The controller
 
