@@ -172,7 +172,7 @@ print_r($articles[43]);
 
 Nothing but nested arrays. For this use case it seems we've discovered an inadequacy in the Nooku base classes. Lets fix it and extend them. This is covered in Chapter 8 but if you'd like to skip ahead just keep reading.
 
-We need to download and install com_tena to continue onward..... Writing Chapt8 more here later. 
+We need to download and install com_tena to continue onward..... Writing Chapt8, more here later. 
              
 # The controller
 
