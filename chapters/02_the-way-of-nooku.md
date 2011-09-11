@@ -197,7 +197,7 @@ You might be wondering why there is any need for a controller when Nooku already
 is very little need, you'll find most of your controllers are no more than 100 lines. This is why Nooku is so powerful. With
 a well designed & standard model like REST at its core, the amount of code needed to develop an app is drastically reduced. 
 
-Nooku is a lazy devs framework and a lazy dev is a more productive dev.         
+Nooku is a lazy devs framework and a lazy dev is a more productive dev.  
 
 # The View          
 
@@ -284,6 +284,8 @@ An example might be tagging, versioning, or slug generation.
 # The whole picture: Models, Controllers & Views meet.
 
 The central thing we've discovered through all of this is that Nooku is oriented around resources, it is RESTful. This helps
-us extrapolate a great deal:
+us extrapolate a great deal: 1. Everything is inherently linked to the model.
 
-## 1. Everything is inherently linked to the model.
+## The REST model.
+    
+

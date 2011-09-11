@@ -101,7 +101,7 @@ artifact properties accessible within an object. `$model->name` and `$model->art
 
 Now at the moment I've very little idea how joins and this relationship should be accomplished in Nooku. So let experiment a
 little and see how they work. Digging around in google turns this thread
-[thread](http://groups.google.com/group/nooku-framework/browse_thread/thread/e236e38d7e04071a) and their are some
+[thread](http://groups.google.com/group/nooku-framework/browse_thread/thread/e236e38d7e04071a) and there are some
 suggestions made but I like to work with real world examples; so based on the second post I'm going to look to com_terms.
 
 Pulling up the source of com_terms reveals that joins are built within `_buildQueryJoins()`. A simple search through Nooku
