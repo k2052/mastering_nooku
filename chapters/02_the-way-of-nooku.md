@@ -287,7 +287,3 @@ The central thing we've discovered through all of this is that Nooku is oriented
 us extrapolate a great deal: 1. Everything is inherently linked to the model.
 
 ## The REST model. 
-
-
-    
-
