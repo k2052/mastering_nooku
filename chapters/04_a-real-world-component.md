@@ -185,8 +185,6 @@ class ComForgeModelSettings extends ComTenaDefaultModel
 	public function __construct(KConfig $config)
 	{
 		parent::__construct($config);       
-		$settings = KFactory::tmp('admin::com.forge.model.settings');
-    $this->fapi = Forge_API::getInstance(null, null, null, $this->settings->getItems());
 	} 
 }
 ```   
@@ -205,7 +203,12 @@ Add that to the initializer.
 
 Tena will take care of creating our schema for us.
   
-## Artifact
+## Artifact    
+
+```php
+$settings = KFactory::tmp('admin::com.forge.model.settings');
+$this->fapi = Forge_API::getInstance(null, null, null, $this->settings->getItems());
+```
           
 # The controller
 
@@ -221,4 +224,6 @@ Tena will take care of creating our schema for us.
 
 ### CRUD: Create, Read, Updating and Deleting Artifacts. 
 
-## Extensions
+## Extensions 
+
+# Fixing The Broken Stuff
