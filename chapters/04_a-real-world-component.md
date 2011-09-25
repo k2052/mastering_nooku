@@ -59,8 +59,8 @@ class ComForgeModelSettings extends ComDefaultModelDefault
 
 ## Artifact
 
-In Forge the concept of an artifact is essential, its a basically an extension listing. For now we can simplify the model and
-allow it to get data entirely via API. But later on we might want to cache the data locally in a DB.   
+In Forge the concept of an artifact is essential, its a basically an extension listing. For now we can simplify the model
+and allow it to get data entirely via API. But later on we might want to cache the data locally in a DB. 
 
 Lets go ahead create our model file. Do `touch models/artifacts.php`.
 
@@ -170,10 +170,43 @@ $articles = $model->getList()->toArray();
 print_r($articles[43]);
 ```    
 
-Nothing but nested arrays. For this use case it seems we've discovered an inadequacy in the Nooku base classes. Lets fix it and extend them. This is covered in Chapter 8 but if you'd like to skip ahead just keep reading.
+Nothing but nested arrays. For this use case it seems we've discovered an inadequacy in the Nooku base classes. Lets fix it
+and extend them. This is covered in Chapter 8 but if you'd like to skip ahead just keep reading.        
 
-We need to download and install com_tena to continue onward..... Writing Chapt8, more here later. 
-             
+# Models PT2.
+
+Once we've installed com_tena we will have a partial ORM available. Lets take advantage of this and rework our models.
+
+## Settings
+
+```php
+class ComForgeModelSettings extends ComTenaDefaultModel
+{
+	public function __construct(KConfig $config)
+	{
+		parent::__construct($config);       
+		$settings = KFactory::tmp('admin::com.forge.model.settings');
+    $this->fapi = Forge_API::getInstance(null, null, null, $this->settings->getItems());
+	} 
+}
+```   
+
+Instead of inserting DB data manually we can do the following.
+ 
+```php
+$this->key('name', 'string')
+  ->key('desc', 'text')
+  ->key('source_url', 'string')
+  ->key('public_key', 'string')
+  ->key('private_key', 'string');
+```      
+
+Add that to the initializer. 
+
+Tena will take care of creating our schema for us.
+  
+## Artifact
+          
 # The controller
 
 ## Settings
