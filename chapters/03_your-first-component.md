@@ -27,7 +27,7 @@ INSERT INTO `#__extensions`    ( `extension_id`, `name`, `type`, `element`,
 Once we've got our code structured we can do sym links. cd into the root of your joomla install (or nooku server).
 We can use the symlinker tool to create the symlinks, this shortens 3-5 commands into one. 
 
-Run `symlinker /Users/kenerickson/com_tena/code PATH_TO_JOOMLA_INSTALL_ROOT`. This is actually a very simple add all it does
+Run `symlinker /componentfolder/code PATH_TO_JOOMLA_INSTALL_ROOT`. This is actually a very simple add all it does
 is `ln -s` to the (site or administrator)/components/com_tena
 
 # The nervous system of a Nooku component  
