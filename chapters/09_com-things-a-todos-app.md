@@ -5,9 +5,11 @@ utilize coffee-script & spine in my projects & it would be a real test of Nooku 
 app.
 
 Lets port the example spine app [spine.todos](https://github.com/maccman/spine.todos) we will give it a simple grid interface
-in the backend & full featured interface on the frontend.  
+in the backend & full featured interface on the frontend.   
 
-# The models
+# The Shared   
+
+## Models
 
 We're going to only really need one model to hold the Todos.
 
@@ -38,5 +40,24 @@ Now the great thing about spine is that its persistence layer is RESTful. We onl
 controller path) and it will figure the magic out. {::see} [Spine
 Docs](http://maccman.github.com/spine/#s-models-persistence) {:/see}
 
+# The Backend  
 
+Lets create our entry point file in site. `touch things.php`        
 
+Then add the dispatcher
+
+```php
+echo KFactory::get('admin::com.things.dispatcher')->dispatch();       
+```    
+
+Lets load the todos model and play with it a bit.
+
+# The Frontend   
+
+Lets create our entry point file in site. `touch things.php`  
+
+Then add the dispatcher
+
+```php
+echo KFactory::get('admin::com.things.dispatcher')->dispatch();       
+```
